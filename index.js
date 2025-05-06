@@ -71,11 +71,23 @@ const gameController = (function () {
     return _checkCols() || _checkRows() || _checkDiag()
   }
 
+  const checkForDraw = function () {
+    for (let i = 0; i < 9; i++) {
+      if (!Gameboard.getField(i)) {
+        return false
+      }
+    }
+    return true
+  }
+
   const makeMove = function (field) {
     Gameboard.setField(field, currentPlayer.getSign())
     currentPlayer = currentPlayer === player1 ? player2 : player1
     if (checkForWin()) {
       console.log('WINNER WINNER CHICKEN DINNER')
+    }
+    if (checkForDraw()) {
+      console.log("IT'S A DRAW")
     }
   }
 
